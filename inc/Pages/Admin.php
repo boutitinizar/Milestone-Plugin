@@ -9,23 +9,34 @@
 namespace Inc\Pages;
 
 use Inc\Base\BaseController;
+use Inc\Api\SettingsApi;
 
 
 class Admin extends BaseController
 {
-
-    public function register(){
-
-      add_action('admin_menu',array($this,'add_admin_pages'));
+    public $settings;
+    public $pages = [];
+    public function __construct()
+    {
+        $this->settings = new SettingsApi();
+        $this->pages = [
+            [
+                'page_title'=>'Milestone Plugin',
+                'menu_title'=>'Milestone',
+                'capability'=>'manage_options',
+                'menu_slug'=>'milestone_plugin',
+                'callback'=>function(){echo'<h1>Plugin</h1>';},
+                'icon_url'=>'dashicons-admin-multisite',
+                'position'=>'2',
+            ]
+        ];
 
     }
-    public function  add_admin_pages(){
-        add_menu_page('Milestone Plugin','Milestone','manage_options','milestone_plugin',array($this,'admin_index'),'dashicons-admin-multisite',2);
+
+    public function register()
+    {
+        $this->settings->addPages($this->pages)->register();
     }
 
-    public function admin_index(){
-        //require template
-        require_once $this->plugin_path.'templates/admin.php';
-    }
 
 }
