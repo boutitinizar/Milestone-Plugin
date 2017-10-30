@@ -1,0 +1,13 @@
+{
+    "name": "niwqr/milestone-plugin",
+    "authors": [
+        {
+            "name": "Boutiti Nizar",
+            "email": "boutitinizar@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload":{
+        "psr-4":{"Inc\\":"./inc"}
+    }
+}
